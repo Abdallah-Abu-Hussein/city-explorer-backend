@@ -18,13 +18,13 @@ server.use(cors());
 // });
 class Forecast
 {
-  constructor(date, description){
-    this.date = date;
-    this.description = description;
+  constructor(weatherForCity){
+    this.date = weatherForCity.valid_date;
+    this.description = weatherForCity.weather.description;
   }
 
 }
-//localhost:3008/weather?city=amman
+//localhost:3008/weather?city=<amman,paris,seattle>
 server.get('/weather', (req, res) =>
 {
   try{
@@ -34,10 +34,12 @@ server.get('/weather', (req, res) =>
     }
     });
     let weatherData2 = City.data.map(weatherForCity => {
-      return new Forecast(weatherForCity.valid_date, weatherForCity.weather.description); });
+      return new Forecast(weatherForCity);
+    });
     res.status(200).send(weatherData2);
   } catch (err) {
-    res.status(500).send('Error 500: Wrong request add city name to your URL');
+    res.status(500).send('Error 500: Wrong request add city name to your URL/ for this lab there is only three cities you can search for amman / paris / seattle');
+    
   }
 });
 
