@@ -49,9 +49,9 @@ server.get('/', (req, res)=>
 {res.status(200).send('Home route LOL');
 });
 //localhost:3008/test>>>request
-// server.get(`/test`, (request, response) =>
-// {response.send('All is good every thing is working, WOW it\'s your first API');
-// });
+server.get(`/test`, (request, response) =>
+{response.send('All is good every thing is working, WOW it\'s your first API');
+});
 //localhost:3008
 // server.get('*', (req, res) =>
 // {res.status(404).send('lol not working ');
