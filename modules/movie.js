@@ -1,18 +1,32 @@
 'use strict';
 const axios = require('axios');
+let cacheMemory = {};
+
 
 function MovieHandler(req, res) {
   let city = req.query.city;
 
   let movieURL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${city}`;
 
-  axios.get(movieURL).then(movieResults => {
+  if (cacheMemory[city] !== undefined) {
+    // console.log("the data is already exist");
+    // console.log(cacheMemory);
+    res.send(cacheMemory[city]);
+  }else{
+    try{
+      axios.get(movieURL).then(movieResults => {
 
-    let newMovieArray = movieResults.data.results.map(movieForCity => {return new Movie(movieForCity);
-    });
-    res.send(newMovieArray);
-  }).catch(error =>
-  { res.send(error); });
+        let MovieArray = movieResults.data.results.map(movieForCity => {return new Movie(movieForCity);
+        });
+        cacheMemory[city] = MovieArray;
+        res.send(MovieArray);
+      });
+    }
+    catch(error)
+    { res.send(error);
+    }
+
+  }
 }
 class Movie {
   constructor(movieForCity) {
