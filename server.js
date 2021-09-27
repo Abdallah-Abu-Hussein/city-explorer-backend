@@ -18,7 +18,8 @@ server.get('/',homeHandler);
 server.get(`/test`,testHandler);
 server.get('/getWeather',weatherHandler);
 server.get('/getMovie',MovieHandler);
-server.get('*',anythingElseHandler);// always in the last
+server.get('*',anythingElseHandler);
+// always in the last
 
 
 
@@ -29,9 +30,9 @@ function weatherHandler(req, res){
 
   // res.send('good inside weather');
   let city = req.query.city;
-  console.log(city);
+  // console.log(city);
   const weatherData =`https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&key=${process.env.WEATHER_API_KEY}`;
-  console.log(weatherData);
+  // console.log(weatherData);
 
   axios.get(weatherData).then(weatherRus =>{
     // console.log(weatherRus);
