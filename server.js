@@ -3,12 +3,14 @@
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
+const axios = require('axios');
 // server will have the properties and methods in express
 const server = express();
 
 
 const weatherHandler = require('./modules/weather');
 const MovieHandler = require('./modules/movie');
+
 
 // port number
 const PORT = process.env.PORT;
@@ -23,6 +25,7 @@ server.get('/getWeather',weatherHandler);
 server.get('/getMovie',MovieHandler);
 server.get('*',anythingElseHandler);
 // always in the last
+
 
 
 
@@ -46,6 +49,7 @@ function testHandler(req, res)
 function anythingElseHandler(req, res)
 {res.status(404).send('lol not working ');
 }
+
 
 
 
